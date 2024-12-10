@@ -7,62 +7,117 @@
 import XCTest
 
 final class RegisterUITests:XCTestCase{
-    func test1() throws{
-       let app = XCUIApplication()
-                app.launch()
-        
-        let createNewAccountButton = app.staticTexts["Create new account"]
-        XCTAssertTrue(createNewAccountButton.exists, "The 'Create new account' button should exist")
-        createNewAccountButton.tap()
-
-        
-        let signUpLabel = app.staticTexts["Sign Up"]
-        XCTAssertTrue(signUpLabel.waitForExistence(timeout: 5), "The 'Sign Up' label should appear on the page")
-
-        
-        let userNameTextField = app.textFields["userNameTextField"].firstMatch
-        XCTAssertTrue(userNameTextField.exists, "The username text field should exist")
-        let uniqueUsername = generateRandomString()
-
-        userNameTextField.tap()
-        userNameTextField.typeText(uniqueUsername)
-        
-        app.buttons["return"].tap()
-                
-        let passwordTextField =   app.secureTextFields["passwordTextField"].firstMatch
-        XCTAssertTrue(passwordTextField.exists, "The password text field should exist")
-        passwordTextField.tap()
-        passwordTextField.typeText("12345")
-        
-        app.buttons["return"].tap()
-        
-        let confirmPasswordTextField = app.secureTextFields["confirmPasswordTextField"].firstMatch
-        XCTAssertTrue(confirmPasswordTextField.exists, "The confirm password text field should exist")
-        confirmPasswordTextField.tap()
-        confirmPasswordTextField.typeText("12345")
-        app.buttons["return"].tap()
-        
-        let signUpButton = app.buttons["Sign Up"]
-        signUpButton.tap()
-        
-        let congratulationsAlert = app.alerts["Congratulations!"]
-        let alertLogInButton = congratulationsAlert.buttons["Log in"]
-        alertLogInButton.tap()
-        
-        XCTAssertEqual(app.textFields["userNameTextField"].firstMatch.value as! String, uniqueUsername)
-        
-        let loginButton = app.buttons["loginButton"]
-        loginButton.tap()
-        let addSpendButton = app.buttons["addSpendButton"]
-        XCTAssertTrue(addSpendButton.waitForExistence(timeout: 3))
-        let statisticsLabel = app.staticTexts["Statistics"]
-        XCTAssertTrue(statisticsLabel.waitForExistence(timeout: 3))
-
+    
+    var app :XCUIApplication!
+    
+    override func setUp() {
+        super.setUp()
+        launchAppWithoutLogin()
     }
     
-    func generateRandomString(length: Int = 6) -> String {
+    func test_register()  throws {
+        
+        //Arrange
+        clickOnCreateNewAccountButton()
+        
+        //Act
+        let uniqueUsername = generateRandomString()
+        input(login: uniqueUsername)
+        input(password: "12345")
+        input(confirmPasword: "12345")
+        clickOnSignUpButton()
+        clickOnAlertLoginButton()
+        clickOnLoginButton()
+        
+        //verifyTextFieldValue("userNameTextField", expectedValue: uniqueUsername)
+
+        //Asert
+        checkAddSpendButtonIsExist()
+        checkStatisticsLabelIsExist()
+    }
+    
+    private func generateRandomString(length: Int = 6) -> String {
         let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         return String((0..<length).map { _ in characters.randomElement()! })
     }
     
+    // MARK: -Domain Specific Language
+    private func launchAppWithoutLogin(){
+        XCTContext.runActivity(named: "Run Application without Login"){ _ in
+            app = XCUIApplication()
+            app.launchArguments=["RemoveAuthOnStart"]
+            app.launch()
+        }
+    }
+    
+    private func clickOnCreateNewAccountButton(){
+        let createNewAccountButton = app.staticTexts["Create new account"]
+        XCTAssertTrue(createNewAccountButton.exists, "The 'Create new account' button should exist")
+        createNewAccountButton.tap()
+        checkTextIsAppear("Sign Up","The 'Sign Up' label should appear on the page")
+    }
+    
+    private func checkTextIsAppear(_ text:String ,_ message:String){
+        let text = app.staticTexts[text]
+        XCTAssertTrue(text.waitForExistence(timeout: 5), message)
+    }
+    
+    private func input(login:String){
+        XCTContext.runActivity(named: "Enter the login\(login)"){ _ in
+            let userNameTextField = app.textFields["userNameTextField"].firstMatch
+            userNameTextField.tap()
+            userNameTextField.typeText(login)
+        }
+    }
+    
+    private func input(password:String){
+        XCTContext.runActivity(named: "Enter the password\(password)"){ _ in
+            let passwordTextField =   app.secureTextFields["passwordTextField"].firstMatch
+            passwordTextField.tap()
+            passwordTextField.typeText(password)
+        }
+    }
+    
+    private func input(confirmPasword:String){
+        XCTContext.runActivity(named: "Enter the confirmPasword\(confirmPasword)"){ _ in
+            let confirmPasswordTextField = app.secureTextFields["confirmPasswordTextField"].firstMatch
+            confirmPasswordTextField.tap()
+            confirmPasswordTextField.typeText(confirmPasword)
+        }
+    }
+    
+    private func input(login:String,password:String,confirmPasword:String){
+        input(login: login)
+        input(password: password)
+        input(confirmPasword: confirmPasword)
+    }
+    
+    private func clickOnSignUpButton(){
+        app.buttons["Sign Up"].tap()
+    }
+    
+    private func verifyTextFieldValue(_ textFieldIdentifier: String, expectedValue: String) {
+        let textField = app.textFields[textFieldIdentifier].firstMatch
+        XCTAssertTrue(textField.exists, "The text field with identifier \(textFieldIdentifier) should exist.")
+        XCTAssertEqual(textField.value as? String, expectedValue, "The value in the text field should be \(expectedValue).")
+    }
+
+    private func clickOnLoginButton(){
+        app.buttons["loginButton"].tap()
+    }
+    
+    
+    private func clickOnAlertLoginButton(){
+        app.alerts["Congratulations!"].buttons["Log in"].tap()
+    }
+    
+    public func checkAddSpendButtonIsExist(){
+        let addSpendButton = app.buttons["addSpendButton"]
+        XCTAssertTrue(addSpendButton.waitForExistence(timeout: 5))
+    }
+    
+    public func checkStatisticsLabelIsExist(){
+        let statisticsLabel = app.staticTexts["Statistics"]
+        XCTAssertTrue(statisticsLabel.waitForExistence(timeout: 3))
+    }
 }
