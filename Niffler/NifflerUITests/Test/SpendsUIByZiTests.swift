@@ -72,8 +72,6 @@ final class SpendsUIByZiTests:XCTestCase{
         checkNewSpendIsShown(title: "Test Desc")
     }
     
-
-    
     private func generateRandomString(length: Int = 6) -> String {
         let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         return String((0..<length).map { _ in characters.randomElement()! })
@@ -191,7 +189,6 @@ final class SpendsUIByZiTests:XCTestCase{
         app.buttons["Add"].tap()
     }
     
-    
     private func checkNewSpendIsShown(title: String, file: StaticString = #filePath, line: UInt = #line) {
         XCTContext.runActivity(named: "Check New Spend Is Shown with \(title) name "){ _ in
             let spendTitle = app.firstMatch
@@ -231,5 +228,4 @@ final class SpendsUIByZiTests:XCTestCase{
             app.alerts["Add category"].buttons["Add"].tap()
         }
     }
-    
 }
