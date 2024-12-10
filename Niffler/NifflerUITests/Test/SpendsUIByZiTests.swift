@@ -15,7 +15,7 @@ final class SpendsUIByZiTests:XCTestCase{
         launchAppWithoutLogin()
     }
     
-    func test() throws{
+    func test_checkSpendListIsEmpty() throws{
         //Arrange
         clickOnCreateNewAccountButton()
         
@@ -31,6 +31,48 @@ final class SpendsUIByZiTests:XCTestCase{
         verifySpendsListValue(expectedValue:"0 ₽")
         
     }
+    
+    func test_AddNewspendWithoutCategory() throws{
+        //Arrange
+        clickOnCreateNewAccountButton()
+        
+        let uniqueUsername = generateRandomString()
+
+        //Act
+        doRegistration(username: uniqueUsername,password: "12345", confirmPasword: "12345")
+        clickOnAlertLoginButton()
+        clickOnLoginButton()
+        clickOnAddNewSpendButton()
+        fillAmountField("250")
+        fillDescriptionField("Test Desc")
+        clickOnAddButton()
+        
+        //Asert
+        checkNewSpendIsShown(title: "Test Desc")
+        
+    }
+    
+    func test_AddNewspendWithNewCategory() throws{
+        //Arrange
+        clickOnCreateNewAccountButton()
+        
+        let uniqueUsername = generateRandomString()
+
+        //Act
+        doRegistration(username: uniqueUsername,password: "12345", confirmPasword: "12345")
+        clickOnAlertLoginButton()
+        clickOnLoginButton()
+        clickOnAddNewSpendButton()
+        fillAmountField("250")
+        fillDescriptionField("Test Desc")
+        clickOnNewCategoryButton("Test")
+        clickOnAddButton()
+        
+        //Asert
+        checkNewSpendIsShown(title: "Test Desc")
+    }
+    
+
     
     private func generateRandomString(length: Int = 6) -> String {
         let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
@@ -121,6 +163,73 @@ final class SpendsUIByZiTests:XCTestCase{
     public func checkStatisticsLabelIsExist(){
         let statisticsLabel = app.staticTexts["Statistics"]
         XCTAssertTrue(statisticsLabel.waitForExistence(timeout: 3))
+    }
+    
+    private func clickOnAddNewSpendButton(){
+        XCTContext.runActivity(named: "Click on Add Spend Button"){ _ in
+            let addSpendButton = app.buttons["addSpendButton"]
+            XCTAssertTrue(addSpendButton.waitForExistence(timeout: 5))
+            addSpendButton.tap()
+        }
+    }
+    
+    private func fillAmountField(_ amount:String){
+        let amountField = app.textFields["amountField"]
+        XCTAssertTrue(amountField.waitForExistence(timeout: 5))
+        amountField.tap()
+        amountField.typeText(amount)
+    }
+    
+    private func fillDescriptionField(_ description:String){
+        let descriptionField = app.textFields["descriptionField"]
+        XCTAssertTrue(descriptionField.waitForExistence(timeout: 5))
+        descriptionField.tap()
+        descriptionField.typeText(description)
+    }
+    
+    private func clickOnAddButton(){
+        app.buttons["Add"].tap()
+    }
+    
+    
+    private func checkNewSpendIsShown(title: String, file: StaticString = #filePath, line: UInt = #line) {
+        XCTContext.runActivity(named: "Check New Spend Is Shown with \(title) name "){ _ in
+            let spendTitle = app.firstMatch
+                .scrollViews.firstMatch
+                .staticTexts[title].firstMatch
+                .waitForExistence(timeout: 1)
+            
+            XCTAssertTrue(spendTitle, file: file, line: line)
+        }
+    }
+    
+    private func clickOnNewCategoryButton(_ categoryName:String){
+        XCTContext.runActivity(named: "Click on new Category Button"){ _ in
+            let newCategoryButton = app.buttons["Select category"]
+            XCTAssertTrue(newCategoryButton.waitForExistence(timeout: 5))
+            
+            if newCategoryButton.isHittable{
+                newCategoryButton.tap()
+                fillCategoryNameField("Test")
+                clickOnAddCategoryButton()
+            }else{
+                newCategoryButton.tap()
+                app.buttons[categoryName].tap()
+            }
+        }
+    }
+    
+    private func fillCategoryNameField(_ name:String){
+        let categoryName = app.textFields["Name"]
+        XCTAssertTrue(categoryName.waitForExistence(timeout: 5))
+        categoryName.tap()
+        categoryName.typeText(name)
+    }
+    
+    private func clickOnAddCategoryButton(){
+        XCTContext.runActivity(named: "Click on Add Category Button"){ _ in
+            app.alerts["Add category"].buttons["Add"].tap()
+        }
     }
     
 }
