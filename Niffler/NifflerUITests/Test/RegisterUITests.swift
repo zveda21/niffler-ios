@@ -34,6 +34,7 @@ final class RegisterUITests:XCTestCase{
         //Asert
         checkAddSpendButtonIsExist()
         checkStatisticsLabelIsExist()
+        
     }
     
     private func generateRandomString(length: Int = 6) -> String {

@@ -38,6 +38,7 @@ extension StatisticView {
             Text("\(totalStat, specifier: "%.0f") ₽")
                 .bold()
                 .foregroundColor(.black)
+                .accessibilityIdentifier("spendsList")
         ).frame(width: 200)
     }
 
