@@ -41,8 +41,15 @@ public class CategoriesRepository: ObservableObject {
     }
     
     private func makeNewCategory() -> CategoryDTO {
-        CategoryDTO(id: nil, name: selectedCategory!, // TODO: Make it optional
-                    username: nil, archived: false)
+        let newCategory = CategoryDTO(
+            id: nil,
+            name: selectedCategory!, // TODO: Make it optional
+            username: nil,
+            archived: false)
+        
+        categoriesDto.append(newCategory) // Cache
+        
+        return newCategory
     }
     
     public func remove(_ indexSet: IndexSet) {
