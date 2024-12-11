@@ -16,6 +16,7 @@ public class CategoriesRepository: ObservableObject {
         self.categoriesDto = categories
         self.categories = categories
             .filter(\.isActive)
+            .filter(\.notEmpty)
             .map(\.name)
         
         self.selectedCategory = selectedCategory ?? self.categories.first!
