@@ -3,11 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B4E50482D0F77D800E9683D /* ProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4E50472D0F77D300E9683D /* ProfilePage.swift */; };
 		5BC1A8222D08CE240070B751 /* SpendsUIByZiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC1A8212D08CE150070B751 /* SpendsUIByZiTests.swift */; };
+		5BD6C2E42D0F6A86007C63FB /* RegisterPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD6C2E32D0F6A81007C63FB /* RegisterPage.swift */; };
 		5BDD2EA92D073C0800AD22FA /* RegisterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDD2EA82D073BFC00AD22FA /* RegisterUITests.swift */; };
 		7468537A2B0CAE9700E48DFE /* NifflerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746853792B0CAE9700E48DFE /* NifflerApp.swift */; };
 		7468537C2B0CAE9700E48DFE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7468537B2B0CAE9700E48DFE /* ContentView.swift */; };
@@ -53,7 +55,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5B4E50472D0F77D300E9683D /* ProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePage.swift; sourceTree = "<group>"; };
 		5BC1A8212D08CE150070B751 /* SpendsUIByZiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendsUIByZiTests.swift; sourceTree = "<group>"; };
+		5BD6C2E32D0F6A81007C63FB /* RegisterPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPage.swift; sourceTree = "<group>"; };
 		5BDD2EA82D073BFC00AD22FA /* RegisterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUITests.swift; sourceTree = "<group>"; };
 		746853762B0CAE9700E48DFE /* Niffler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Niffler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		746853792B0CAE9700E48DFE /* NifflerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NifflerApp.swift; sourceTree = "<group>"; };
@@ -91,6 +95,10 @@
 		A9F0B4632B1066AF00E33941 /* SpendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendsView.swift; sourceTree = "<group>"; };
 		A9FCA79D2BEB760700A5A1D2 /* PasswordField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		5BD6C2DD2D0F69C9007C63FB /* Utils */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Utils; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		746853732B0CAE9700E48DFE /* Frameworks */ = {
@@ -160,6 +168,8 @@
 		74BDA2322C615BD8001B7630 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
+				5B4E50472D0F77D300E9683D /* ProfilePage.swift */,
+				5BD6C2E32D0F6A81007C63FB /* RegisterPage.swift */,
 				74BDA22C2C614D47001B7630 /* BasePage.swift */,
 				74BDA2372C615C11001B7630 /* LoginPage.swift */,
 				74BDA2352C615BFA001B7630 /* SpendsPage.swift */,
@@ -183,6 +193,7 @@
 		74D55B782BE12B9600AEF67D /* NifflerUITests */ = {
 			isa = PBXGroup;
 			children = (
+				5BD6C2DD2D0F69C9007C63FB /* Utils */,
 				74BDA2392C615C44001B7630 /* Test */,
 				74BDA2322C615BD8001B7630 /* Pages */,
 			);
@@ -261,6 +272,9 @@
 			);
 			dependencies = (
 				74D55B7E2BE12B9600AEF67D /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				5BD6C2DD2D0F69C9007C63FB /* Utils */,
 			);
 			name = NifflerUITests;
 			productName = NifflerUITests;
@@ -365,7 +379,9 @@
 				74BDA22D2C614D47001B7630 /* BasePage.swift in Sources */,
 				74BDA22F2C614D8D001B7630 /* SpendsUITests.swift in Sources */,
 				74BDA2312C615BB7001B7630 /* BaseTestCase.swift in Sources */,
+				5B4E50482D0F77D800E9683D /* ProfilePage.swift in Sources */,
 				74BDA2362C615BFA001B7630 /* SpendsPage.swift in Sources */,
+				5BD6C2E42D0F6A86007C63FB /* RegisterPage.swift in Sources */,
 				5BDD2EA92D073C0800AD22FA /* RegisterUITests.swift in Sources */,
 				74BDA2342C615BDD001B7630 /* NewSpendPage.swift in Sources */,
 				5BC1A8222D08CE240070B751 /* SpendsUIByZiTests.swift in Sources */,
@@ -510,7 +526,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Niffler/Preview Content\"";
-				DEVELOPMENT_TEAM = P67Q4Q7HA9;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Niffler/Info.plist;
@@ -519,6 +535,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -540,7 +557,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Niffler/Preview Content\"";
-				DEVELOPMENT_TEAM = P67Q4Q7HA9;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Niffler/Info.plist;
@@ -549,6 +566,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
