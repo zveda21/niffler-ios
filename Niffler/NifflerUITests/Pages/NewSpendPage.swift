@@ -83,4 +83,26 @@ class NewSpendPage: BasePage {
             app.alerts["Add category"].buttons["Add"].tap()
         }
     }
+
+    func verifyIfNewCategoryButtonIsVisibleAndClickable(
+        file: StaticString = #file, line: UInt = #line
+    ) {
+        XCTContext.runActivity(
+            named: "Verify if New category button is visible and clickable "
+        ) { _ in
+            let addCategoryButton = app.buttons["+ New category"]
+            let isExists = addCategoryButton.waitForExistence(timeout: 5)
+            XCTAssertTrue(
+                isExists,
+                "'+ New category' button should be visible after waiting for 5 seconds.",
+                file: file,
+                line: line
+            )
+            XCTAssertTrue(
+                addCategoryButton.isHittable,
+                "'+ New category' button should be tappable.", file: file,
+                line: line)
+        }
+
+    }
 }

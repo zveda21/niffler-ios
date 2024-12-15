@@ -100,4 +100,20 @@ class SpendsPage: BasePage {
             addSpendButton.tap()
         }
     }
+
+    func clickOnMenuButton() {
+        XCTContext.runActivity(named: "Click on Add Spend Button") { _ in
+            let menuIcon = app.images["ic_menu"]
+            XCTAssertTrue(menuIcon.waitForExistence(timeout: 5))
+            menuIcon.tap()
+        }
+    }
+    
+    func clickOnProfileButton(){
+        XCTContext.runActivity(named: "Click on Add Spend Button") { _ in
+            let profileIcon = app.buttons["Profile"]
+            XCTAssertTrue(profileIcon.waitForExistence(timeout: 5))
+            profileIcon.tap()
+        }
+    }
 }
