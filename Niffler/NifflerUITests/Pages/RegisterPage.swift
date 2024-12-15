@@ -43,6 +43,15 @@ class RegisterPage: BasePage {
         input(password: password)
         input(confirmPasword: confirmPasword)
     }
+    
+    func doRegistration(username:String,password:String,confirmPasword:String){
+        XCTContext.runActivity(named: "Register user with name is \(username)"){ _ in
+            input(login: username)
+            input(password: password)
+            input(confirmPasword: confirmPasword)
+            clickOnSignUpButton()
+        }
+    }
 
     func clickOnSignUpButton() {
         app.buttons["Sign Up"].tap()
@@ -72,4 +81,5 @@ class RegisterPage: BasePage {
             line: #line
         )
     }
+    
 }
