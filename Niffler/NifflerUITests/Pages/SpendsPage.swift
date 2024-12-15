@@ -36,4 +36,14 @@ class SpendsPage: BasePage {
         
         XCTAssertTrue(isFound, file: file, line: line)
     }
+    
+     func checkAddSpendButtonIsExist(){
+        let addSpendButton = app.buttons["addSpendButton"]
+        XCTAssertTrue(addSpendButton.waitForExistence(timeout: 5))
+    }
+    
+     func checkStatisticsLabelIsExist(){
+        let statisticsLabel = app.staticTexts["Statistics"]
+        XCTAssertTrue(statisticsLabel.waitForExistence(timeout: 3))
+    }
 }
