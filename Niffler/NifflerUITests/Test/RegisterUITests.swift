@@ -99,7 +99,13 @@ final class RegisterUITests:XCTestCase{
     private func verifyTextFieldValue(_ textFieldIdentifier: String, expectedValue: String) {
         let textField = app.textFields[textFieldIdentifier].firstMatch
         XCTAssertTrue(textField.exists, "The text field with identifier \(textFieldIdentifier) should exist.")
-        XCTAssertEqual(textField.value as? String, expectedValue, "The value in the text field should be \(expectedValue).")
+        XCTAssertEqual(
+            textField.value as? String,
+            expectedValue,
+            "The value in the text field should be \(expectedValue).",
+            file: #file,
+            line: #line
+        )
     }
 
     private func clickOnLoginButton(){
