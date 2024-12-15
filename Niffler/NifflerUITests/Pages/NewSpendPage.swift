@@ -55,33 +55,32 @@ class NewSpendPage: BasePage {
     func clickOnAddButton() {
         app.buttons["Add"].tap()
     }
-    
-    func clickOnNewCategoryButton(_ categoryName:String){
-       XCTContext.runActivity(named: "Click on new Category Button"){ _ in
-           let newCategoryButton = app.buttons["Select category"]
-           XCTAssertTrue(newCategoryButton.waitForExistence(timeout: 5))
-           
-           if newCategoryButton.isHittable{
-               newCategoryButton.tap()
-               fillCategoryNameField("Test")
-               clickOnAddCategoryButton()
-           }else{
-               newCategoryButton.tap()
-               app.buttons[categoryName].tap()
-           }
-       }
-   }
-    private func fillCategoryNameField(_ name:String){
+
+    func clickOnNewCategoryButton(_ categoryName: String) {
+        XCTContext.runActivity(named: "Click on new Category Button") { _ in
+            let newCategoryButton = app.buttons["Select category"]
+            XCTAssertTrue(newCategoryButton.waitForExistence(timeout: 5))
+
+            if newCategoryButton.isHittable {
+                newCategoryButton.tap()
+                fillCategoryNameField("Test")
+                clickOnAddCategoryButton()
+            } else {
+                newCategoryButton.tap()
+                app.buttons[categoryName].tap()
+            }
+        }
+    }
+    private func fillCategoryNameField(_ name: String) {
         let categoryName = app.textFields["Name"]
         XCTAssertTrue(categoryName.waitForExistence(timeout: 5))
         categoryName.tap()
         categoryName.typeText(name)
     }
-    
-    private func clickOnAddCategoryButton(){
-        XCTContext.runActivity(named: "Click on Add Category Button"){ _ in
+
+    private func clickOnAddCategoryButton() {
+        XCTContext.runActivity(named: "Click on Add Category Button") { _ in
             app.alerts["Add category"].buttons["Add"].tap()
         }
     }
-    
 }

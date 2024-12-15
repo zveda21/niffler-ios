@@ -100,7 +100,4 @@ class SpendsPage: BasePage {
             addSpendButton.tap()
         }
     }
-    
-
-   
 }

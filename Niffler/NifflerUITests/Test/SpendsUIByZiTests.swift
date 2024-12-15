@@ -6,9 +6,9 @@
 //
 import XCTest
 
-final class SpendsUIByZiTests:XCTestCase{
-    
-    func test_checkSpendListIsEmpty() throws{
+final class SpendsUIByZiTests: TestCase {
+
+    func test_checkSpendListIsEmpty() throws {
         let app = XCUIApplication()
         let loginPage = LoginPage(app: app)
         let registerPage = RegisterPage(app: app)
@@ -17,22 +17,24 @@ final class SpendsUIByZiTests:XCTestCase{
 
         //Arrange
         loginPage.clickOnCreateNewAccountButton()
-        
+
         let uniqueUsername = RandomTextGenerator().generateRandomString()
 
         //Act
-        registerPage.doRegistration(username: uniqueUsername,password: "12345", confirmPasword: "12345")
+        registerPage.doRegistration(
+            username: uniqueUsername, password: "12345", confirmPasword: "12345"
+        )
         registerPage.clickOnAlertLoginButton()
         registerPage.clickOnLoginButton()
-        
+
         //Alert
         spendsPage.checkStatisticsLabelIsExist()
-        spendsPage.verifySpendsListValue(expectedValue:"0 ₽")
-        
+        spendsPage.verifySpendsListValue(expectedValue: "0 ₽")
+
     }
-    
-    func test_AddNewspendWithoutCategory() throws{
-        
+
+    func test_AddNewspendWithoutCategory() throws {
+
         let app = XCUIApplication()
         let loginPage = LoginPage(app: app)
         let registerPage = RegisterPage(app: app)
@@ -42,38 +44,42 @@ final class SpendsUIByZiTests:XCTestCase{
 
         //Arrange
         loginPage.clickOnCreateNewAccountButton()
-        
+
         let uniqueUsername = RandomTextGenerator().generateRandomString()
 
         //Act
-        registerPage.doRegistration(username: uniqueUsername,password: "12345", confirmPasword: "12345")
+        registerPage.doRegistration(
+            username: uniqueUsername, password: "12345", confirmPasword: "12345"
+        )
         registerPage.clickOnAlertLoginButton()
         registerPage.clickOnLoginButton()
         spendsPage.clickOnAddNewSpendButton()
         newSpendPage.fillAmountField("250")
         newSpendPage.fillDescriptionField("Test Desc")
         newSpendPage.clickOnAddButton()
-        
+
         //Asert
         spendsPage.checkNewSpendIsShown(title: "Test Desc")
-        
+
     }
-    
-    func test_AddNewspendWithNewCategory() throws{
+
+    func test_AddNewspendWithNewCategory() throws {
         let app = XCUIApplication()
         let loginPage = LoginPage(app: app)
         let registerPage = RegisterPage(app: app)
         let spendsPage = SpendsPage(app: app)
         let newSpendPage = NewSpendPage(app: app)
         loginPage.launchAppWithoutLogin()
-        
+
         //Arrange
         loginPage.clickOnCreateNewAccountButton()
-        
+
         let uniqueUsername = RandomTextGenerator().generateRandomString()
 
         //Act
-        registerPage.doRegistration(username: uniqueUsername,password: "12345", confirmPasword: "12345")
+        registerPage.doRegistration(
+            username: uniqueUsername, password: "12345", confirmPasword: "12345"
+        )
         registerPage.clickOnAlertLoginButton()
         registerPage.clickOnLoginButton()
         spendsPage.clickOnAddNewSpendButton()
@@ -81,9 +87,8 @@ final class SpendsUIByZiTests:XCTestCase{
         newSpendPage.fillDescriptionField("Test Desc")
         newSpendPage.clickOnNewCategoryButton("Test")
         newSpendPage.clickOnAddButton()
-        
+
         //Asert
         spendsPage.checkNewSpendIsShown(title: "Test Desc")
     }
-
 }
