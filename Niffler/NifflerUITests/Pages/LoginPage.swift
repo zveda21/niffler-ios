@@ -59,4 +59,12 @@ class LoginPage: BasePage {
                           file: file, line: line)
         }
     }
+    
+    func clickOnCreateNewAccountButton(){
+        let createNewAccountButton = app.staticTexts["Create new account"]
+        XCTAssertTrue(createNewAccountButton.exists, "The 'Create new account' button should exist")
+        createNewAccountButton.tap()
+        checkTextIsAppear("Sign Up","The 'Sign Up' label should appear on the page")
+    }
+    
 }

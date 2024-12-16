@@ -16,12 +16,15 @@ class TestCase: XCTestCase {
         loginPage = nil
         spendsPage = nil
         newSpendPage = nil
+        registerPage = nil
+        profilePage = nil
         
         super.tearDown()
     }
     
+    // MARK: -Domain Specific Language
     func launchAppWithoutLogin() {
-        XCTContext.runActivity(named: "Запускаю приложение в режиме 'без авторизации'") { _ in
+        XCTContext.runActivity(named: "Run Application without Login") { _ in
             app.launchArguments = ["RemoveAuthOnStart"]
             app.launch()
         }
@@ -30,5 +33,7 @@ class TestCase: XCTestCase {
     lazy var loginPage: LoginPage! = LoginPage(app: app)
     lazy var spendsPage: SpendsPage! = SpendsPage(app: app)
     lazy var newSpendPage: NewSpendPage! = NewSpendPage(app: app)
+    lazy var registerPage: RegisterPage! = RegisterPage(app: app)
+    lazy var profilePage: ProfilePage! = ProfilePage(app: app)
 }
 
