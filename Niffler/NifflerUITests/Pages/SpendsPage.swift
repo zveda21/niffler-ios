@@ -34,30 +34,36 @@ class SpendsPage: BasePage {
         app.buttons["addSpendButton"].tap()
     }
 
+    @discardableResult
     func assertNewSpendIsShown(
         title: String, file: StaticString = #filePath, line: UInt = #line
-    ) {
+    ) -> Self {
         let isFound = app.firstMatch
             .scrollViews.firstMatch
             .staticTexts[title].firstMatch
             .waitForExistence(timeout: 1)
 
         XCTAssertTrue(isFound, file: file, line: line)
+        return self
     }
 
-    func checkAddSpendButtonIsExist() {
+    func checkAddSpendButtonIsExist() -> Self {
         let addSpendButton = app.buttons["addSpendButton"]
         XCTAssertTrue(addSpendButton.waitForExistence(timeout: 5))
+        return self
     }
 
-    func checkStatisticsLabelIsExist() {
+    @discardableResult
+    func checkStatisticsLabelIsExist() -> Self {
         let statisticsLabel = app.staticTexts["Statistics"]
         XCTAssertTrue(statisticsLabel.waitForExistence(timeout: 3))
+        return self
     }
 
+    @discardableResult
     func checkNewSpendIsShown(
         title: String, file: StaticString = #filePath, line: UInt = #line
-    ) {
+    ) -> Self {
         XCTContext.runActivity(
             named: "Check New Spend Is Shown with \(title) name "
         ) { _ in
@@ -68,18 +74,21 @@ class SpendsPage: BasePage {
 
             XCTAssertTrue(spendTitle, file: file, line: line)
         }
+        return self
     }
 
-    func checkSpendsListIsNotVisible() {
+    func checkSpendsListIsNotVisible() -> Self {
         // this method will work when we dont have an identifier
         let spendsList = app.staticTexts["spendsList"]
         XCTAssertFalse(
             spendsList.exists,
             "The spendsList element should not exist in the hierarchy.")
+        return self
     }
 
     // MARK: - Method to verify spends list value using identifier
-    func verifySpendsListValue(expectedValue: String) {
+    @discardableResult
+    func verifySpendsListValue(expectedValue: String) -> Self {
         let spendsList = app.staticTexts["spendsList"]
         let exists = spendsList.waitForExistence(timeout: 5)
         XCTAssertTrue(
@@ -91,29 +100,35 @@ class SpendsPage: BasePage {
             actualValue, expectedValue,
             "The value of spends list should be \(expectedValue), but it is \(actualValue)."
         )
+        return self
     }
 
-    func clickOnAddNewSpendButton() {
+    @discardableResult
+    func clickOnAddNewSpendButton() -> Self {
         XCTContext.runActivity(named: "Click on Add Spend Button") { _ in
             let addSpendButton = app.buttons["addSpendButton"]
             XCTAssertTrue(addSpendButton.waitForExistence(timeout: 5))
             addSpendButton.tap()
         }
+        return self
     }
 
-    func clickOnMenuButton() {
+    func clickOnMenuButton() -> Self {
         XCTContext.runActivity(named: "Click on Add Spend Button") { _ in
             let menuIcon = app.images["ic_menu"]
             XCTAssertTrue(menuIcon.waitForExistence(timeout: 5))
             menuIcon.tap()
         }
+        return self
     }
-    
-    func clickOnProfileButton(){
+
+    @discardableResult
+    func clickOnProfileButton() -> Self {
         XCTContext.runActivity(named: "Click on Add Spend Button") { _ in
             let profileIcon = app.buttons["Profile"]
             XCTAssertTrue(profileIcon.waitForExistence(timeout: 5))
             profileIcon.tap()
         }
+        return self
     }
 }

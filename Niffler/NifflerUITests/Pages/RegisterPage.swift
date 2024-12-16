@@ -43,31 +43,49 @@ class RegisterPage: BasePage {
         input(password: password)
         input(confirmPasword: confirmPasword)
     }
-    
-    func doRegistration(username:String,password:String,confirmPasword:String){
-        XCTContext.runActivity(named: "Register user with name is \(username)"){ _ in
+
+    func doRegistration(
+        username: String, password: String, confirmPasword: String
+    ) -> Self {
+        XCTContext.runActivity(named: "Register user with name is \(username)")
+        { _ in
             input(login: username)
             input(password: password)
             input(confirmPasword: confirmPasword)
             clickOnSignUpButton()
         }
+        return self
     }
 
     func clickOnSignUpButton() {
-        app.buttons["Sign Up"].tap()
+        XCTContext.runActivity(
+            named: "Check Sign Up button visiblity and click on it"
+        ) { _ in
+            let signUpButton = app.buttons["Sign Up"]
+            let signUpButtonExists = signUpButton.waitForExistence(timeout: 3)
+            let signUpButtonVisible =
+                signUpButton.exists && signUpButton.isHittable
+            if signUpButtonExists && !signUpButtonVisible {
+                pressReturnKey()
+            }
+            signUpButton.tap()
+        }
     }
 
-    func clickOnLoginButton() {
+    @discardableResult
+    func clickOnLoginButton() -> Self {
         app.buttons["loginButton"].tap()
+        return self
     }
 
-    func clickOnAlertLoginButton() {
+    func clickOnAlertLoginButton() -> Self {
         app.alerts["Congratulations!"].buttons["Log in"].tap()
+        return self
     }
 
     func verifyTextFieldValue(
         _ textFieldIdentifier: String, expectedValue: String
-    ) {
+    ) -> Self {
         let textField = app.textFields[textFieldIdentifier].firstMatch
         XCTAssertTrue(
             textField.exists,
@@ -80,6 +98,6 @@ class RegisterPage: BasePage {
             file: #file,
             line: #line
         )
+        return self
     }
-    
 }

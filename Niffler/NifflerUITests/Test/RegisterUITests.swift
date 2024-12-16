@@ -9,27 +9,22 @@ import XCTest
 final class RegisterUITests: TestCase {
 
     func test_register() throws {
-        let app = XCUIApplication()
-        let loginPage = LoginPage(app: app)
-        let registerPage = RegisterPage(app: app)
-        let spendsPage = SpendsPage(app: app)
-        loginPage.launchAppWithoutLogin()
+        launchAppWithoutLogin()
 
         //Arrange
         loginPage.clickOnCreateNewAccountButton()
 
         //Act
         let uniqueUsername = RandomTextGenerator().generateRandomString()
-        registerPage.input(login: uniqueUsername)
-        registerPage.input(password: "12345")
-        registerPage.input(confirmPasword: "12345")
-        registerPage.clickOnSignUpButton()
-        registerPage.clickOnAlertLoginButton()
-        registerPage.clickOnLoginButton()
+        registerPage.doRegistration(
+            username: uniqueUsername, password: "12345", confirmPasword: "12345"
+        )
+        .clickOnAlertLoginButton()
+        .clickOnLoginButton()
 
         //Asert
-        spendsPage.checkAddSpendButtonIsExist()
-        spendsPage.checkStatisticsLabelIsExist()
-
+        spendsPage
+            .checkAddSpendButtonIsExist()
+            .checkStatisticsLabelIsExist()
     }
 }

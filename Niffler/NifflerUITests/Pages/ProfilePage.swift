@@ -8,9 +8,10 @@ import XCTest
 
 class ProfilePage: BasePage {
 
+    @discardableResult
     func checkIfcategoryExist(
         categoryName: String, file: StaticString = #file, line: UInt = #line
-    ) {
+    ) -> Self {
         XCTContext.runActivity(named: "Check category name ") { _ in
             let categoryLabel = app.staticTexts[categoryName]
             let IsExists = categoryLabel.waitForExistence(timeout: 5)
@@ -20,9 +21,10 @@ class ProfilePage: BasePage {
                 file: file, line: line
             )
         }
+        return self
     }
 
-    func deleteExistingCategory(categoryName: String) {
+    func deleteExistingCategory(categoryName: String) -> Self {
         XCTContext.runActivity(named: "Check category name ") { _ in
             let categoryCell = app.cells.staticTexts[categoryName].firstMatch
             categoryCell.waitForExistence(timeout: 5)
@@ -39,13 +41,16 @@ class ProfilePage: BasePage {
                 deleteButton.tap()
             }
         }
+        return self
     }
 
-    func clickOnCloseButton() {
+    @discardableResult
+    func clickOnCloseButton() -> Self {
         XCTContext.runActivity(named: "Close Profile Page") { _ in
             let closeButton = app.buttons["Close"]
             closeButton.waitForExistence(timeout: 5)
             closeButton.tap()
         }
+        return self
     }
 }

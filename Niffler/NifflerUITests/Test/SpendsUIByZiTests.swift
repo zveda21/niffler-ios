@@ -9,11 +9,7 @@ import XCTest
 final class SpendsUIByZiTests: TestCase {
 
     func test_checkSpendListIsEmpty() throws {
-        let app = XCUIApplication()
-        let loginPage = LoginPage(app: app)
-        let registerPage = RegisterPage(app: app)
-        let spendsPage = SpendsPage(app: app)
-        loginPage.launchAppWithoutLogin()
+        launchAppWithoutLogin()
 
         //Arrange
         loginPage.clickOnCreateNewAccountButton()
@@ -24,23 +20,17 @@ final class SpendsUIByZiTests: TestCase {
         registerPage.doRegistration(
             username: uniqueUsername, password: "12345", confirmPasword: "12345"
         )
-        registerPage.clickOnAlertLoginButton()
-        registerPage.clickOnLoginButton()
+        .clickOnAlertLoginButton()
+        .clickOnLoginButton()
 
         //Alert
         spendsPage.checkStatisticsLabelIsExist()
-        spendsPage.verifySpendsListValue(expectedValue: "0 ₽")
+            .verifySpendsListValue(expectedValue: "0 ₽")
 
     }
 
     func test_AddNewspendWithoutCategory() throws {
-
-        let app = XCUIApplication()
-        let loginPage = LoginPage(app: app)
-        let registerPage = RegisterPage(app: app)
-        let spendsPage = SpendsPage(app: app)
-        let newSpendPage = NewSpendPage(app: app)
-        loginPage.launchAppWithoutLogin()
+        launchAppWithoutLogin()
 
         //Arrange
         loginPage.clickOnCreateNewAccountButton()
@@ -51,12 +41,13 @@ final class SpendsUIByZiTests: TestCase {
         registerPage.doRegistration(
             username: uniqueUsername, password: "12345", confirmPasword: "12345"
         )
-        registerPage.clickOnAlertLoginButton()
-        registerPage.clickOnLoginButton()
+        .clickOnAlertLoginButton()
+        .clickOnLoginButton()
         spendsPage.clickOnAddNewSpendButton()
-        newSpendPage.fillAmountField("250")
-        newSpendPage.fillDescriptionField("Test Desc")
-        newSpendPage.clickOnAddButton()
+        newSpendPage
+            .fillAmountField("250")
+            .fillDescriptionField("Test Desc")
+            .clickOnAddButton()
 
         //Asert
         spendsPage.checkNewSpendIsShown(title: "Test Desc")
@@ -64,12 +55,7 @@ final class SpendsUIByZiTests: TestCase {
     }
 
     func test_AddNewspendWithNewCategory() throws {
-        let app = XCUIApplication()
-        let loginPage = LoginPage(app: app)
-        let registerPage = RegisterPage(app: app)
-        let spendsPage = SpendsPage(app: app)
-        let newSpendPage = NewSpendPage(app: app)
-        loginPage.launchAppWithoutLogin()
+        launchAppWithoutLogin()
 
         //Arrange
         loginPage.clickOnCreateNewAccountButton()
@@ -80,27 +66,19 @@ final class SpendsUIByZiTests: TestCase {
         registerPage.doRegistration(
             username: uniqueUsername, password: "12345", confirmPasword: "12345"
         )
-        registerPage.clickOnAlertLoginButton()
-        registerPage.clickOnLoginButton()
+        .clickOnAlertLoginButton()
+        .clickOnLoginButton()
         spendsPage.clickOnAddNewSpendButton()
-        newSpendPage.fillAmountField("250")
-        newSpendPage.fillDescriptionField("Test Desc")
-        newSpendPage.clickOnNewCategoryButton("Test")
-        newSpendPage.clickOnAddButton()
+        newSpendPage
+            .inputSpend(amount: "250", description: "Test Desc", title: "Test")
 
         //Asert
         spendsPage.checkNewSpendIsShown(title: "Test Desc")
-        
+
     }
-    
+
     func test_checkCategoryNameInProfile() throws {
-        let app = XCUIApplication()
-        let loginPage = LoginPage(app: app)
-        let registerPage = RegisterPage(app: app)
-        let spendsPage = SpendsPage(app: app)
-        let newSpendPage = NewSpendPage(app: app)
-        let profilePage = ProfilePage(app: app)
-        loginPage.launchAppWithoutLogin()
+        launchAppWithoutLogin()
 
         //Arrange
         loginPage.clickOnCreateNewAccountButton()
@@ -111,32 +89,26 @@ final class SpendsUIByZiTests: TestCase {
         registerPage.doRegistration(
             username: uniqueUsername, password: "12345", confirmPasword: "12345"
         )
-        registerPage.clickOnAlertLoginButton()
-        registerPage.clickOnLoginButton()
+        .clickOnAlertLoginButton()
+        .clickOnLoginButton()
         spendsPage.clickOnAddNewSpendButton()
-        newSpendPage.fillAmountField("250")
-        newSpendPage.fillDescriptionField("Test Desc")
-        newSpendPage.clickOnNewCategoryButton("Test")
-        newSpendPage.clickOnAddButton()
+        newSpendPage
+            .inputSpend(amount: "250", description: "Test Desc", title: "Test")
 
         //Asert
-        spendsPage.checkNewSpendIsShown(title: "Test Desc")
-        
-        spendsPage.clickOnMenuButton()
-        spendsPage.clickOnProfileButton()
-        
+        spendsPage
+            .checkNewSpendIsShown(title: "Test Desc")
+            .clickOnMenuButton()
+            .clickOnProfileButton()
+
         profilePage.checkIfcategoryExist(categoryName: "Test")
-        
+
     }
-    
-    func test_checkAfterDeleteCategoryNe3wCategoryButtonIsVisibleAndClickable() throws {
-        let app = XCUIApplication()
-        let loginPage = LoginPage(app: app)
-        let registerPage = RegisterPage(app: app)
-        let spendsPage = SpendsPage(app: app)
-        let newSpendPage = NewSpendPage(app: app)
-        let profilePage = ProfilePage(app: app)
-        loginPage.launchAppWithoutLogin()
+
+    func test_checkAfterDeleteCategoryNe3wCategoryButtonIsVisibleAndClickable()
+        throws
+    {
+        launchAppWithoutLogin()
 
         //Arrange
         loginPage.clickOnCreateNewAccountButton()
@@ -147,22 +119,20 @@ final class SpendsUIByZiTests: TestCase {
         registerPage.doRegistration(
             username: uniqueUsername, password: "12345", confirmPasword: "12345"
         )
-        registerPage.clickOnAlertLoginButton()
-        registerPage.clickOnLoginButton()
+        .clickOnAlertLoginButton()
+        .clickOnLoginButton()
         spendsPage.clickOnAddNewSpendButton()
-        newSpendPage.fillAmountField("250")
-        newSpendPage.fillDescriptionField("Test Desc")
-        newSpendPage.clickOnNewCategoryButton("Test")
-        newSpendPage.clickOnAddButton()
+        newSpendPage
+            .inputSpend(amount: "250", description: "Test Desc", title: "Test")
         spendsPage.checkNewSpendIsShown(title: "Test Desc")
-        spendsPage.clickOnMenuButton()
-        spendsPage.clickOnProfileButton()
-        profilePage.deleteExistingCategory(categoryName: "Test")
-        profilePage.clickOnCloseButton()
-        
+            .clickOnMenuButton()
+            .clickOnProfileButton()
+        profilePage
+            .deleteExistingCategory(categoryName: "Test")
+            .clickOnCloseButton()
+
         //Asert
         spendsPage.clickOnAddNewSpendButton()
         newSpendPage.verifyIfNewCategoryButtonIsVisibleAndClickable()
-        
     }
 }
